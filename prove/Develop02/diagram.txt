@@ -1,0 +1,26 @@
+Class: Journal
+Attributes: 
+* _entries : <List>Entry
+* _filename : string
+* _menu : <List>string
+
+Behaviors:
+* CreateEntry() : Entry
+* DisplayJournal() : void
+* ReadFile() : string[]
+* SaveFile() : void
+* ChooseMenuOption() : int
+
+
+Class: Entry
+Attributes: 
+* _userResponse : string
+* _promptText
+* _prompts : <List>string
+* _date : string 
+// String if user entered, otherwise, could grab datetime from computer
+
+Behaviors:
+* DisplayRandomPrompt() : string
+* DisplayEntry() : void
+* Update() : void

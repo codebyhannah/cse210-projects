@@ -1,0 +1,22 @@
+Class: Job
+// Keeps track of the company, job title, start year, and end year.
+Attributes:
+* _company : string
+* _jobTitle : string
+* _startYear : int
+* _endYear : int
+
+Behaviors:
+* Display() : void 
+// Displays the job information in the format "Job Title (Company) StartYear-EndYear"
+
+
+Class: Resume
+// Keeps track of the person's name and a list of their jobs
+Attributes:
+* _name : string
+* _jobs : List<job>
+
+Behaviors:
+* Display() : void
+// Displays the resume, showing the name first, then displaying each of the jobs.
