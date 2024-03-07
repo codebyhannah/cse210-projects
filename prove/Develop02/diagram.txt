@@ -1,8 +1,8 @@
 Class: Journal
 Attributes: 
-* _entries : <List>Entry
+* _entries : List<Entry>
 * _filename : string
-* _menu : <List>string
+* _menu : List<string>
 
 Behaviors:
 * CreateEntry() : Entry
@@ -14,13 +14,13 @@ Behaviors:
 
 Class: Entry
 Attributes: 
-* _userResponse : string
-* _promptText
-* _prompts : <List>string
+* _entryText : string
+* _promptText : string
+* _prompts : List<string>
 * _date : string 
 // String if user entered, otherwise, could grab datetime from computer
 
 Behaviors:
-* DisplayRandomPrompt() : string
+* DisplayRandomPrompt() : void
 * DisplayEntry() : void
 * Update() : void
