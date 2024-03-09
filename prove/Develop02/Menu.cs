@@ -3,24 +3,41 @@ using System;
 public class Menu
 {
     // --- Attributes ---
-    public List<string> _menu = new List<string>{"Display Journal", "Create New Entry", "Save Journal", "Quit"};
+    public List<string> _menuOptions = new List<string>{"a", "b", "c"};
 
     // --- Behaviors ---
     public void DisplayMenu()
     {
+        Console.WriteLine("~*~ MENU ~*~");
         int i = 1;
-        foreach(string option in _menu)
+        foreach(string option in _menuOptions)
         {
             Console.WriteLine($"{i}. {option}");
             i++;
         }
+        Console.WriteLine();
     }
-    public void ChooseMenuOption()
+    public int ChooseMenuOption()
         {
-            string menuChoice = "1";
-            if (menuChoice == "1")
+            DisplayMenu();
+            string menuChoice = "0";
+            do
             {
-
-            }
+                if (!int.TryParse(menuChoice, out int j))
+                {
+                    Console.Write("Please enter the number associated with your choice (integers only): ");
+                }
+                else if (int.Parse(menuChoice) > _menuOptions.Count || int.Parse(menuChoice) < 0)
+                {
+                    Console.Write("Please enter the number (from the menu) associated with your choice: ");
+                }
+                else
+                {
+                    Console.Write("Please enter the number associated with your choice: ");
+                }
+                menuChoice = Console.ReadLine();
+                Console.WriteLine();
+            }while (!int.TryParse(menuChoice, out int n) || int.Parse(menuChoice) > _menuOptions.Count || int.Parse(menuChoice) <= 0);
+            return int.Parse(menuChoice);
         }
 }
