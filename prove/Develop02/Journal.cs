@@ -18,13 +18,14 @@ public class Journal
             int option = _menu.ChooseMenuOption();
             if (option == 1)
             {
-                // OpenJournalFile function
+                OpenJournalFile();
             }
             else if (option == 2)
             {
                 DisplayJournal();
-                // add "return to menu (yes/no)? " and a select entry option for editing. Also add an edit function to entry.cs. select entry funtion skeleton below under create entry
-                Console.WriteLine("Enter 'done' to return to menu, or enter an entry number (integers only) to select an entry for editing.");
+                // add "return to menu (yes/no)? " thing and a select entry option for editing. Also add an edit function to entry.cs. select entry funtion skeleton below under create entry
+                //Console.WriteLine("Enter 'done' to return to menu, or enter an entry number (integers only) to select an entry for editing.");
+                //Console.WriteLine();
             }
             else if (option == 3)
             {
@@ -73,9 +74,7 @@ public class Journal
     }
     public void SelectEntry()
     {
-        // select entry option for editing. Also add an edit function to entry.cs
-        // select entry and edit entry would be exceeding requirements
-        // like, entry.Edit();
+        // select entry option for editing. Also add an edit function to entry.cs, like entry.Edit();
     }
     public void DisplayJournal()
     {
@@ -97,13 +96,51 @@ public class Journal
             }
         }
     }
-    public string[] ReadJournalFile()
+    public void OpenJournalFile()
     {
-        string[] yo = {"yo","yo"};
-        return yo;
+        Document journal =  new Document();
+        Console.Write("Enter filename to open Journal from: ");
+        journal._filename = Console.ReadLine();
+        Console.WriteLine();
+        journal.ReadFile();
+        foreach (List<string> item in journal._contents)
+        {
+            Entry entry = new Entry();
+            foreach (string line in item)
+            {
+                if (line == item[0])
+                {
+                    entry._date = DateTime.Parse(line);
+                }
+                else if (line == item[1])
+                {
+                    entry._promptText = line;
+                }
+                else
+                {
+                    entry._entryText.Add(line);
+                }
+            }
+            _entries.Add(entry);
+            Console.WriteLine("Journal Loaded.");
+            Console.WriteLine();
+            DisplayJournal();
+        }
     }
     public void SaveJournalFile()
     {
-
+        Document journal =  new Document();
+        Console.Write("Save as: ");
+        journal._filename = Console.ReadLine();
+        foreach (Entry entry in _entries)
+        {
+            List<string> entryContents = new List<string>{$"{entry._date.ToLongDateString()}", $"{entry._promptText}"};
+            foreach (string line in entry._entryText)
+            {
+                entryContents.Add(line);
+            }
+            journal._transcript.Add(entryContents);
+        }
+        journal.SaveFile();
     }
 }

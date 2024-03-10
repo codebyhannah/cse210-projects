@@ -7,6 +7,5 @@ class Program
         Console.Clear();
         Journal journal = new Journal();
         journal.OpenMenu();
-        //journal.CreateEntry();
     }
 }

@@ -12,7 +12,7 @@ public class Entry
     public void DisplayRandomPrompt()
     {
         Random randomGenerator = new Random();
-        int promptNum = randomGenerator.Next(0, _prompts.Count-1);
+        int promptNum = randomGenerator.Next(0, _prompts.Count);
         _promptText = _prompts[promptNum];
         Console.WriteLine($"Prompt: {_promptText}");
     }
