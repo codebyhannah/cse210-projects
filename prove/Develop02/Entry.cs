@@ -64,7 +64,7 @@ public class Entry
                 }
                 else if (line.ToLower() == "done")
                 {
-                    // This exceeds requirements by adding a way to undo mistakes made while making an entry and an option for changing one's mind about making an entry without having to end the program and start over or adding the undesired material to the journal.
+                    // This exceeds requirements by adding a way to undo mistakes made while making an entry or change one's mind about making an entry without having to end the program and start over or adding the undesired material to the journal.
                     Console.WriteLine();
                     Console.Write("Do you want to 1. SAVE this entry, 2. DISCARD and start over, or 3. QUIT to menu without saving? (Please enter the number associated with your choice) ");
                     string choice = Console.ReadLine();
