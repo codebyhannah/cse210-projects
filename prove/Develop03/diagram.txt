@@ -1,0 +1,47 @@
+Class: Scripture
+
+Attributes:
+private _reference : Reference
+private _scriptureText : List<List<Word>>
+private _fileName : string
+
+Constructors:
+public Scripture() // default
+public Scripture(fileName: string)
+public Scripture(reference: Reference, text: string)
+
+Methods:
+public DisplayScripture(numToHide : int) : void
+private HideRandomWords(numToHide : int) : void
+private OpenFile(fileName: string) : void
+private AllHidden() : bool // may or may not use
+
+
+Class: Reference
+Attributes:
+private _book : string
+private _chapter : string
+private _verse : int
+private _endVerse : int
+
+Constructors:
+public Reference(book : string, chapter : string, startVerse : int)
+public Reference(book : string, chapter : string, startVerse : int, endVerse : int)
+
+Methods:
+public DisplayReference() : void
+
+
+Class: Word
+Attributes:
+private _text : string
+private _hidden : bool
+
+Constructors: 
+public Word(text: string)
+
+Methods:
+public DisplayWord() : void
+public Hide() : void
+public Show() : void
+private IsHidden() : bool
