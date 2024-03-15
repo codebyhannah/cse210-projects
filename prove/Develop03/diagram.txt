@@ -1,5 +1,4 @@
 Class: Scripture
-
 Attributes:
 private _reference : Reference
 private _scriptureText : List<List<Word>>
@@ -13,7 +12,7 @@ public Scripture(reference: Reference, text: string)
 Methods:
 public DisplayScripture(numToHide : int) : void
 private HideRandomWords(numToHide : int) : void
-private OpenFile(fileName: string) : void
+private OpenFile() : void
 private AllHidden() : bool // may or may not use
 
 
