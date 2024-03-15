@@ -34,7 +34,8 @@ class Scripture
     }
     public Scripture(Reference reference, string text)
     {
-
+        _reference = reference;
+        GetWordsFromText(text);
     }
 
     // --- Getters and Setters ---
