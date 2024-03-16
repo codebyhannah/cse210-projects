@@ -23,8 +23,6 @@ class Reference
         _startVerse = startVerse;
         _endVerse = endVerse;
     }
-
-    // --- Getters and Setters ---
     
     // --- Methods ---
     public void DisplayReference()

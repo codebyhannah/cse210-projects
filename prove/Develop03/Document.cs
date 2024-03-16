@@ -54,7 +54,6 @@ public class Document
             _contents.Add(itemContents);
         }        
     }
-
     public void SaveFile()
     {
         using (StreamWriter outputFile = new StreamWriter(_filename))

@@ -7,6 +7,11 @@ class Word
     private bool _hidden;
 
     // --- Constructors ---
+    public Word()
+    {
+        _text = "";
+        _hidden = false;
+    }
     public Word(string text)
     {
         _text = text;
@@ -14,6 +19,10 @@ class Word
     }
 
     // --- Getters and Setters ---
+    public bool IsHidden()
+    {
+        return _hidden;
+    }
 
     // --- Methods ---
     public void DisplayWord()

@@ -6,6 +6,6 @@ class Program
     {
         Console.Clear();
         Scripture scripture = new Scripture("test.txt");
-        scripture.DisplayScripture(0);
+        scripture.Memorize();
     }
 }
