@@ -1,0 +1,122 @@
+Class : Menu
+Attributes:
+* _menuOptions : new List<string>
+
+Constructors:
+* Menu(menuOptions : List<string>)
+
+Methods:
+* DisplayMenu() : void
+* ChooseMenuOption() : int
+
+
+Class : Document
+Attributes:
+* _filename : string
+* _splitter : string
+* _emptyLine : string
+* _contents : List<List<string>>
+* _transcript : List<List<string>>();
+
+Constructors:
+* Document(filename : string) : void
+* Document(filename : string, splitter : string, emptyLine : string)
+
+Getters and Setters:
+* GetContents() : List<List<string>>
+
+Methods:
+* ReadFile() : void
+* SaveFile() : void
+
+
+Class : Log
+Attributes:
+* _filename : string
+* _currentSessionActivities : List<Activity>
+* _activitiesLog : List<string>
+* _breathingActivityCount : int
+* _reflectionActivityCount : int
+* _listingActivityCount : int
+
+Constructors:
+* Log() : void // Ask for user input of filename
+* Log(filename) : void
+
+Methods:
+* SaveLog() : void
+* OpenLog() : void
+* DisplayLog() : void
+
+
+Class : Activity
+Attributes:
+* _activityName : string
+* _description : string
+* _duration : int   // Duration in seconds
+
+Constructors:
+* Activity(activityName : string, description : string)
+
+Methods:
+* Start() : void
+* End() : void
+* DisplaySpinner(timeLength : int) : void
+* SaveToLog() : void    // _activityName, _description, and _durations
+
+    ////
+        // Subclasses of Activity Class
+        Class : BreathingActivity
+        // Derived from Activity Class
+        Attributes:
+        * _activityName : string
+        * _description : string
+
+        Constructors:
+        * BreathingActivity() : base(_activityName, _description)
+
+        Methods:
+        * Breathe() : void
+
+
+        Class : PromptedActivity
+        // Derived from Activity Class
+        Attributes:
+        * protected _prompts : List<string>
+        * protected _promptText : string
+
+        Methods:
+        * protected DisplayRandomPrompt(prompts = _prompts : List<string>) : void // uses default parameter value to allow for additional prompt lists to be used when needed, while not requiring unnecessary arguments when not neeeded.
+        * protected SaveToLog() : void    // add _promptText to original Activity.SaveToLog() method
+
+        ////
+            // Subclasses of PromptedActivity Class
+
+            Class : ReflectionActivity
+            // Derived from Activity Class
+            Attributes:
+            * _activityName : string
+            * _description : string
+            * _reflectQuestions : List<string>
+            * _usedQuestions : List<string>
+            * _userResponse : List<string>
+
+            Constructors:
+            * ReflectionActivity() : base(_activityName, _description)
+
+            Methods:
+            * Reflect() : void
+
+
+            Class : ListingActivity
+            // Derived from Activity Class
+            Attributes:
+            * _activityName : string
+            * _description : string
+
+            Constructors:
+            * ListingActivity() : base(_activityName, _description)
+
+            Methods:
+            * List() : void
+            * SaveToLog() : void    // add _usedQuestions and _userResponse to PromptedActivity.SaveToLog() method
