@@ -1,0 +1,55 @@
+Class: Assignment
+Attributes:
+* _studentName : string
+* _topic : string
+
+Constructors:
+* Assignment()  
+* Assignment(studentName : string)
+* Assignment(studentName : string, topic : string)
+
+Getters and Setters:
+* GetStudentName()
+* SetStudentName(studentName : string)
+* GetTopic()
+* SetTopic(topic : string)
+
+Methods:
+* GetSummary() : string
+
+////
+    // Subclasses of Assignment Class
+
+    Class: MathAssignment 
+    // Derived from Assignment Class
+    Attributes:
+    * _textbookSection : string
+    * _problems : string
+
+    Constructors:
+    * MathAssignment(studentName : string, topic : string, textbookSection : string, problems : string) : base(studentName, topic)
+
+    Getters and Setters:
+    * GetTextbookSection()
+    * SetTextbookSection(textbookSection : string)
+    * GetProblems()
+    * SetProblems(problems : string)
+
+    Methods:
+    * GetHomeworkList() : string
+
+
+    Class: WritingAssignment 
+    // Derived from Assignment Class
+    Attributes:
+    * _title : string
+
+    Constructors:
+    * WritingAssignment(studentName : string, topic : string, title : string) : base(studentName, topic)
+
+    Getters and Setters:
+    * GetTitle()
+    * SetTitle(title : string)
+
+    Methods:
+    * GetWritingInformation() : string
