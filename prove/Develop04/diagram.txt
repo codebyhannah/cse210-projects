@@ -41,7 +41,7 @@ Attributes:
 
 Constructors:
 * Log() : void // Ask for user input of filename
-* Log(filename) : void
+* Log(filename : string) : void
 
 Methods:
 * SaveLog() : void
@@ -93,7 +93,7 @@ Methods:
             // Subclasses of PromptedActivity Class
 
             Class : ReflectionActivity
-            // Derived from Activity Class
+            // Derived from PromptedActivity Class
             Attributes:
             * _activityName : string
             * _description : string
@@ -109,7 +109,7 @@ Methods:
 
 
             Class : ListingActivity
-            // Derived from Activity Class
+            // Derived from PromptedActivity Class
             Attributes:
             * _activityName : string
             * _description : string

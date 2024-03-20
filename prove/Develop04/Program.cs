@@ -9,6 +9,8 @@ class Program
         List<string> menuOptions = new List<string>{"a", "b", "c"};
         Menu menu = new Menu(menuOptions);
         menu.DisplayMenu();
-        Console.WriteLine();
+
+        Activity a = new Activity("a", "b");
+        a.End();
     }
 }

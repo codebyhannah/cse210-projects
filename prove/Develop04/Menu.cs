@@ -15,7 +15,7 @@ public class Menu
     // --- Methods ---
     public void DisplayMenu()
     {
-        Console.WriteLine("~*~ MENU ~*~");
+        Console.WriteLine("~*~ Menu ~*~");
         int i = 1;
         foreach(string option in _menuOptions)
         {
