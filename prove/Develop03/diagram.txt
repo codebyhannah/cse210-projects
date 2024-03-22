@@ -44,3 +44,23 @@ public DisplayWord() : void
 public Hide() : void
 public Show() : void
 private IsHidden() : bool
+
+
+Class : Document
+Attributes:
+* _filename : string
+* _splitter : string
+* _emptyLine : string
+* _contents : List<List<string>>
+* _transcript : List<List<string>>();
+
+Constructors:
+* Document(filename : string) : void
+* Document(filename : string, splitter : string, emptyLine : string)
+
+Getters and Setters:
+* GetContents() : List<List<string>>
+
+Methods:
+* ReadFile() : void
+* SaveFile() : void

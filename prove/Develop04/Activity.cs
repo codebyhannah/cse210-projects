@@ -50,11 +50,8 @@ class Activity
         Console.WriteLine();
         Console.WriteLine($"You have completed {_trueDuration} seconds of the {_activityName}.");
         Console.WriteLine();
-        //Console.Write("Returning to menu in: ");
-        //DisplayPauseAnimation("countdown", 5);
-        Console.WriteLine("Press any key to return to menu. ");
-        Console.ReadLine();
-
+        Console.Write("Returning to menu in: ");
+        DisplayPauseAnimation("countdown", 5);
     }
     protected void DisplayPauseAnimation(string spinnerType, int timeLength, int includeZero = -1)
     {
@@ -162,9 +159,4 @@ class Activity
             }   
         }
     }
-    public void SaveToLog() 
-    {
-        // _activityName, _description, and _durations as well as any user content
-
-    }    
 }

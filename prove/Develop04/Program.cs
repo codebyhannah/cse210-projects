@@ -40,9 +40,6 @@ class Program
             {
                 quit = true;
             }
-            /*
-            Activity a = new Activity("generic activity", "Just a generic example activity.");
-            a.End();*/
         } while (quit == false);
     }
 }

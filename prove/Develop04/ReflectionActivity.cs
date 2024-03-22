@@ -47,7 +47,7 @@ class ReflectionActivity : PromptedActivity
                         GetRandomPrompt(_reflectQuestions);
                     }
                 } while (_usedQuestions.Contains(_promptText));
-                Console.Write($"*   {_promptText}   ");
+                Console.Write($"  *  {_promptText}   ");
                 DisplayPauseAnimation("spin", 5);
                 Console.WriteLine();
                 Console.WriteLine();
@@ -55,7 +55,6 @@ class ReflectionActivity : PromptedActivity
                 currentTime = DateTime.Now;
             } while(currentTime < endTime);
         }
-        // The activity may last up to 9 seconds longer than the user input duration, due to given reflection time.
         _trueDuration = (currentTime - startTime).Seconds;
     }
 }

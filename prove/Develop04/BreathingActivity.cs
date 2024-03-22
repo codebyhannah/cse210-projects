@@ -42,7 +42,6 @@ class BreathingActivity : Activity
             Console.WriteLine();
             currentTime = DateTime.Now;
         }
-        // The activity may last up to 11 seconds longer than the user input duration, due to breathing length and extra ending exhale if activity would otherwise end on an inhale.
         _trueDuration = (currentTime - startTime).Seconds;
     }
 }

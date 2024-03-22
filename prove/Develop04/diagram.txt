@@ -10,45 +10,6 @@ Methods:
 * ChooseMenuOption() : int
 
 
-Class : Document
-Attributes:
-* _filename : string
-* _splitter : string
-* _emptyLine : string
-* _contents : List<List<string>>
-* _transcript : List<List<string>>();
-
-Constructors:
-* Document(filename : string) : void
-* Document(filename : string, splitter : string, emptyLine : string)
-
-Getters and Setters:
-* GetContents() : List<List<string>>
-
-Methods:
-* ReadFile() : void
-* SaveFile() : void
-
-
-Class : Log
-Attributes:
-* _filename : string
-* _currentSessionActivities : List<Activity>
-* _activitiesLog : List<string>
-* _breathingActivityCount : int
-* _reflectionActivityCount : int
-* _listingActivityCount : int
-
-Constructors:
-* Log() : void // Ask for user input of filename
-* Log(filename : string) : void
-
-Methods:
-* SaveLog() : void
-* OpenLog() : void
-* DisplayLog() : void
-
-
 Class : Activity
 Attributes:
 * _activityName : string

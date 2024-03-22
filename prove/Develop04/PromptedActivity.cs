@@ -24,9 +24,4 @@ class PromptedActivity : Activity
         _promptText = prompts[promptNum];
         return _promptText;
     }
-    
-    protected void SaveToLog()
-    {
-        // add _promptText to original Activity.SaveToLog() method, look up override
-    }
 }
