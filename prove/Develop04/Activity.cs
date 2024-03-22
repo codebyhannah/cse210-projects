@@ -50,42 +50,49 @@ class Activity
         Console.WriteLine();
         Console.WriteLine($"You have completed {_trueDuration} seconds of the {_activityName}.");
         Console.WriteLine();
+        //Console.Write("Returning to menu in: ");
+        //DisplayPauseAnimation("countdown", 5);
+        Console.WriteLine("Press any key to return to menu. ");
+        Console.ReadLine();
+
     }
     protected void DisplayPauseAnimation(string spinnerType, int timeLength, int includeZero = -1)
     {
         DateTime startTime = DateTime.Now;
         DateTime endTime = startTime.AddSeconds(timeLength);
         DateTime currentTime;
+        int len;
         if(spinnerType == "spin")
         {
             int i = 1;
             do
-            {            
+            {         
+                len = 250;
                 if (i == 1)
                 {
                     Console.Write("|   ");
-                    Thread.Sleep(500);
+                    Thread.Sleep(len);
                     Console.Write("\b \b\b \b\b \b\b \b");
                     i++;
                 }
                 else if (i == 2)
                 {
                     Console.Write("/   ");
-                    Thread.Sleep(500);
+                    Thread.Sleep(len);
                     Console.Write("\b \b\b \b\b \b\b \b");
                     i++;
                 }
                 else if (i == 3)
                 {
                     Console.Write("--  ");
-                    Thread.Sleep(500);
+                    Thread.Sleep(len);
                     Console.Write("\b \b\b \b\b \b\b \b");
                     i++;
                 }
                 else if (i == 4)
                 {
                     Console.Write(@"\   ");
-                    Thread.Sleep(500);
+                    Thread.Sleep(len);
                     Console.Write("\b \b\b \b\b \b\b \b");
                     i = 1;
                 }
@@ -94,34 +101,35 @@ class Activity
         }
         else if (spinnerType == "dots")
         { 
+            len = 500;
             int i = 1;
             do
             {            
                 if (i == 1)
                 {
                     Console.Write(".     ");
-                    Thread.Sleep(500);
+                    Thread.Sleep(len);
                     Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b");
                     i++;
                 }
                 else if (i == 2)
                 {
                     Console.Write("..    ");
-                    Thread.Sleep(500);
+                    Thread.Sleep(len);
                     Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b");
                     i++;
                 }
                 else if (i == 3)
                 {
                     Console.Write("...   ");
-                    Thread.Sleep(500);
+                    Thread.Sleep(len);
                     Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b");
                     i++;
                 }
                 else if (i == 4)
                 {
                     Console.Write("      ");
-                    Thread.Sleep(500);
+                    Thread.Sleep(len);
                     Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b");
                     i = 1;
                 }
@@ -130,11 +138,12 @@ class Activity
         }
         else if (spinnerType == "countdown")
         { 
+            len = 1000;
             int i = timeLength;
             do
             {            
                 Console.Write($"{i}   ");
-                Thread.Sleep(1000);
+                Thread.Sleep(len);
                 // Remove tab
                 Console.Write("\b \b\b \b\b \b");
                 // Remove number (any length of characters)
@@ -148,7 +157,7 @@ class Activity
             if (includeZero == 0)
             {
                 Console.Write($"0   ");
-                Thread.Sleep(1000);
+                Thread.Sleep(len);
                 Console.Write("\b \b\b \b\b \b\b \b");
             }   
         }

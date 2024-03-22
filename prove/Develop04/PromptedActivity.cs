@@ -13,9 +13,16 @@ class PromptedActivity : Activity
     }
 
     // --- Methods ---
-    protected void DisplayRandomPrompt(List<string> prompts)
+    protected string GetRandomPrompt(List<string> prompts = null)
     {
-        // uses default parameter value to allow for additional prompt lists to be used when needed, while not requiring arguments when unnecessary.
+        if (prompts == null)
+        {
+            prompts = _prompts;
+        }
+        Random randomGenerator = new Random();
+        int promptNum = randomGenerator.Next(0, prompts.Count);
+        _promptText = prompts[promptNum];
+        return _promptText;
     }
     
     protected void SaveToLog()

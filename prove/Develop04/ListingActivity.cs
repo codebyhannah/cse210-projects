@@ -23,6 +23,7 @@ class ListingActivity : PromptedActivity
             // a thing     
             currentTime = DateTime.Now;
         } while(currentTime < endTime);
+        _trueDuration = (currentTime - startTime).Seconds;
     }
     public List<string> GetUserList()
     {
