@@ -3,6 +3,7 @@ using System;
 class ListingActivity : PromptedActivity
 {
     // --- Attributes ---
+   private int  _count;
     private List<string> _userResponse;
 
     // --- Constructors ---
@@ -12,9 +13,20 @@ class ListingActivity : PromptedActivity
     }
 
     // --- Methods ---
-    public void List()
+    public void Run()
     {
-        
+        DateTime startTime = DateTime.Now;
+        DateTime endTime = startTime.AddSeconds(_duration);
+        DateTime currentTime;
+        do
+        {
+            // a thing     
+            currentTime = DateTime.Now;
+        } while(currentTime < endTime);
+    }
+    public List<string> GetUserList()
+    {
+        return _userResponse;
     }
     public void SaveToLog()
     {

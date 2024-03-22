@@ -4,7 +4,8 @@ class Activity
     // --- Attributes ---
     private string _activityName;
     private string _description;
-    private int _duration;   // Duration in seconds
+    protected int _duration;   // Duration in seconds
+    protected int _trueDuration;
 
     // --- Constructors ---
     public Activity(string activityName, string description)
@@ -16,7 +17,9 @@ class Activity
     // --- Methods ---
     public void Start()
     {
-        Console.WriteLine($"~*~{_activityName}~*~");
+        Console.Clear();
+        Console.WriteLine($"~*~ {_activityName} ~*~");
+        Console.WriteLine();
         Console.WriteLine($"{_description}");
         Console.WriteLine();
         string durString;
@@ -35,16 +38,20 @@ class Activity
             }
         } while (!int.TryParse(durString, out int n));
         Console.WriteLine();
-        Console.WriteLine("Please prepare to begin the activity.");
+        Console.Write("Get ready");
+        DisplayPauseAnimation("dots", 5);
+        Console.Write("...");
         Console.WriteLine();
-        DisplayPauseAnimation("spin", 5);
-        Console.WriteLine("yolo");
+        Console.WriteLine();
     }
     public void End()
     {
-        
+        Console.WriteLine("Good Job!");
+        Console.WriteLine();
+        Console.WriteLine($"You have completed {_trueDuration} seconds of the {_activityName}.");
+        Console.WriteLine();
     }
-    protected void DisplayPauseAnimation(string spinnerType, int timeLength)
+    protected void DisplayPauseAnimation(string spinnerType, int timeLength, int includeZero = -1)
     {
         DateTime startTime = DateTime.Now;
         DateTime endTime = startTime.AddSeconds(timeLength);
@@ -94,28 +101,28 @@ class Activity
                 {
                     Console.Write(".     ");
                     Thread.Sleep(500);
-                    Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b\b \b");
+                    Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b");
                     i++;
                 }
                 else if (i == 2)
                 {
                     Console.Write("..    ");
                     Thread.Sleep(500);
-                    Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b\b \b");
+                    Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b");
                     i++;
                 }
                 else if (i == 3)
                 {
                     Console.Write("...   ");
                     Thread.Sleep(500);
-                    Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b\b \b");
+                    Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b");
                     i++;
                 }
                 else if (i == 4)
                 {
                     Console.Write("      ");
                     Thread.Sleep(500);
-                    Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b\b \b");
+                    Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b");
                     i = 1;
                 }
                 currentTime = DateTime.Now;
@@ -128,13 +135,22 @@ class Activity
             {            
                 Console.Write($"{i}   ");
                 Thread.Sleep(1000);
-                Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b\b \b");
+                // Remove tab
+                Console.Write("\b \b\b \b\b \b");
+                // Remove number (any length of characters)
+                for (int k = i.ToString().Length; k > 0; k--)
+                {
+                    Console.Write("\b \b");
+                }
                 i--;
                 currentTime = DateTime.Now;
             } while(currentTime < endTime);
-            Console.Write($"0   ");
-            Thread.Sleep(1000);
-            Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b\b \b");
+            if (includeZero == 0)
+            {
+                Console.Write($"0   ");
+                Thread.Sleep(1000);
+                Console.Write("\b \b\b \b\b \b\b \b");
+            }   
         }
     }
     public void SaveToLog() 

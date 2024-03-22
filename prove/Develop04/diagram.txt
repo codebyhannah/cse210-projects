@@ -68,12 +68,9 @@ Methods:
         // Subclasses of Activity Class
         Class : BreathingActivity
         // Derived from Activity Class
-        Attributes:
-        * _activityName : string
-        * _description : string
 
         Constructors:
-        * BreathingActivity() : base(_activityName, _description)
+        * BreathingActivity(activityName, description) : base(activityName, description)
 
         Methods:
         * Breathe() : void
@@ -85,8 +82,11 @@ Methods:
         * protected _prompts : List<string>
         * protected _promptText : string
 
+        Constructors:
+        * PromptedActivity(activityName, description) : base(activityName, description)
+
         Methods:
-        * protected DisplayRandomPrompt(prompts = _prompts : List<string>) : void // uses default parameter value to allow for additional prompt lists to be used when needed, while not requiring unnecessary arguments when not neeeded.
+        * protected DisplayRandomPrompt(prompts: List<string>) : void
         * protected SaveToLog() : void    // add _promptText to original Activity.SaveToLog() method
 
         ////
@@ -95,14 +95,12 @@ Methods:
             Class : ReflectionActivity
             // Derived from PromptedActivity Class
             Attributes:
-            * _activityName : string
-            * _description : string
             * _reflectQuestions : List<string>
             * _usedQuestions : List<string>
             * _userResponse : List<string>
 
             Constructors:
-            * ReflectionActivity() : base(_activityName, _description)
+            * ReflectionActivity(activityName, description) : base(activityName, description)
 
             Methods:
             * Reflect() : void
@@ -111,11 +109,9 @@ Methods:
             Class : ListingActivity
             // Derived from PromptedActivity Class
             Attributes:
-            * _activityName : string
-            * _description : string
 
             Constructors:
-            * ListingActivity() : base(_activityName, _description)
+            * ListingActivity(activityName, description) : base(activityName, description)
 
             Methods:
             * List() : void

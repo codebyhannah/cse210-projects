@@ -13,8 +13,15 @@ class ReflectionActivity : PromptedActivity
     }
 
     // --- Methods ---
-    public void Reflect()
+    public void Run()
     {
-
+        DateTime startTime = DateTime.Now;
+        DateTime endTime = startTime.AddSeconds(_duration);
+        DateTime currentTime;
+        do
+        {
+            // a thing     
+            currentTime = DateTime.Now;
+        } while(currentTime < endTime);
     }
 }
