@@ -1,0 +1,106 @@
+Class : Menu
+Attributes:
+* _menuOptions : List<string>
+
+Constructors:
+* Menu(menuOptions : List<string>)
+
+Methods:
+* DisplayMenu() : void
+* ChooseMenuOption() : int
+
+
+Class : GoalManager
+Attributes:
+* _goalsList : List<Goal>
+* _filename : string
+
+Constructors:
+* GoalManager()
+* GoalManager(filename)
+
+Methods:
+* Start() : void
+* DisplayUserInfo() : void
+* DisplayGoalsList() : void
+* CreateGoal() : void
+* updateGoal() : void
+* SaveGoalsList() : void
+* LoadGoals() : void
+
+
+Class : User
+Attributes:
+* _username : string
+* _score : int
+* _level : int
+* _rank : string
+* _rankList : List<string>
+* _levelUpThreshold : int
+* _rankUpThreshold : int
+
+Constructors:
+* User()
+* User(username)
+
+Methods:
+* DisplayUserInfo() : void
+* IncreaseScore() : void
+* LevelUp() : void
+
+
+Class : Goal
+Attributes:
+* _title : string
+* _details : string
+* _points : int
+* _complete : bool
+
+Constructors:
+* Goal(title, description, points)
+
+Methods:
+* virtual DisplayGoal() : void
+* virtual updateGoal() : void
+* isComplete() : bool
+
+////
+    // Subclasses of Goal Class
+    Class : SimpleGoal // might just be the base goal class, honestly
+    // Derived from Goal Class
+    Attributes:
+
+    Constructors:
+    * SimpleGoal(title, description, points)
+
+    Methods:
+    * override DisplayGoal() : void
+    * override updateGoal() : void
+
+
+    Class : EternalGoal
+    // Derived from Goal Class
+    Attributes:
+
+    Constructors:
+    * EternalGoal(title, description, points)
+
+    Methods:
+    * override DisplayGoal() : void
+    * override updateGoal() : void
+
+
+    Class : ChecklistGoal
+    // Derived from Goal Class
+    Attributes:
+    * _target : int
+    * _current : int
+    * _bonus : int
+
+    Constructors:
+    * ChecklistGoal(title, description, points, target, bonus)
+
+    Methods:
+    * override DisplayGoal() : void
+    * override updateGoal() : void
+
