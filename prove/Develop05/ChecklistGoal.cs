@@ -12,16 +12,27 @@ public class ChecklistGoal : Goal
     {
         _target = target;
         _bonus = bonus;
+        _current = 0;
     }
 
     // --- Methods ---
-    public override void DisplayGoal()
+    public override string DisplayGoal()
     {
-
+        string checkbox = $"[{_current}/{_target}]";
+        return $"{checkbox} {_title} :\n\t{_description}\n\tPoints: {_points}\n\tBonus Points upon Full Completion: {_bonus}";
     }
-    public override void updateGoal()
+    public override int UpdateGoal()
     {
-        
+        _current++;
+        if (_current == _target)
+        {
+            _complete = true;
+            return _bonus;
+        }
+        else
+        {
+            return _points;
+        }
     }
 
 }

@@ -13,9 +13,9 @@ public class Menu
     }
 
     // --- Methods ---
-    public void DisplayMenu()
+    public void DisplayMenu(string menuName = "Menu")
     {
-        Console.WriteLine("~*~ Menu ~*~");
+        Console.WriteLine($"~*~ {menuName} ~*~");
         int i = 1;
         foreach(string option in _menuOptions)
         {
@@ -24,9 +24,9 @@ public class Menu
         }
         Console.WriteLine();
     }
-    public int ChooseMenuOption()
+    public int ChooseMenuOption(string menuName = "Menu")
         {
-            DisplayMenu();
+            DisplayMenu(menuName);
             string menuChoice = "0";
             do
             {

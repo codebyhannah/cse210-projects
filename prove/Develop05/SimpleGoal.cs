@@ -9,13 +9,4 @@ public class SimpleGoal : Goal
     }
 
     // --- Methods ---
-    public override void DisplayGoal()
-    {
-
-    }
-    public override void updateGoal()
-    {
-
-    }
-
 }

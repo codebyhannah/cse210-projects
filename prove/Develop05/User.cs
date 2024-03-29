@@ -14,7 +14,7 @@ public class User
     // --- Constructors ---
     public User()
     {
-
+        _score = 0;
     }
     public User(string username)
     {
@@ -26,9 +26,9 @@ public class User
     {
 
     }
-    public void IncreaseScore()
+    public void IncreaseScore(int points)
     {
-
+        _score += points;
     }
     public void LevelUp()
     {

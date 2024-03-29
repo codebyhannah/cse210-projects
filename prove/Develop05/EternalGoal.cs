@@ -9,13 +9,13 @@ public class EternalGoal : Goal
     }
 
     // --- Methods ---
-    public override void DisplayGoal()
+    public override string DisplayGoal()
     {
-
+        return $"[N/A] {_title} :\n\t{_description}\n\tPoints: {_points}";
     }
-    public override void updateGoal()
+    public override int UpdateGoal()
     {
-        
+        return _points;
     }
 
 }
