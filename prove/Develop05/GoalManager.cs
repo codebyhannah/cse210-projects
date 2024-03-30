@@ -21,6 +21,12 @@ public class GoalManager
     // --- Methods ---
     public bool Start()
     {
+        // This console clearing thing is required to fix that one issue where C# doesn't always like to clear the entire console. 
+        Console.Clear(); Console.WriteLine("\x1b[3J"); Console.Clear();
+        Console.WriteLine("~*~ Goal Tracker ~*~");
+        Console.WriteLine();
+        _user.DisplayUserInfo();
+        Console.WriteLine();
         bool again = true;
         List<string> options = new List<string>{"Display Goals", "Create New Goal", "Update Goal", "Save Goals", "Load Goals", "Quit"};
         Menu menu = new Menu(options);
@@ -51,18 +57,19 @@ public class GoalManager
             again = false;
             // program end
         }
+        if (again)
+        {
+            Console.WriteLine("Press any key to return to menu.");
+            Console.ReadLine();
+        }
         return again;
-    }
-    private void DisplayUserInfo()
-    {
-
     }
     private void DisplayGoalsList()
     {
+        Console.WriteLine("~*~ Goals ~*~");
         int i = 1;
         foreach (Goal goal in _goalsList)
         {
-            Console.WriteLine("~*~ Goals ~*~");
             Console.WriteLine($"{i}. {goal.DisplayGoal()}");
             Console.WriteLine();
             i++;
@@ -184,7 +191,7 @@ public class GoalManager
     }
     private void SaveGoalsList()
     {
-
+        
     }
     private void LoadGoals()
     {

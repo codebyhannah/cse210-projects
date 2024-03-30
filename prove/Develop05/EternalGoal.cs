@@ -5,7 +5,7 @@ public class EternalGoal : Goal
     // --- Constructors ---
     public EternalGoal(string title, string description, int points) : base (title, description, points)
     {
-
+        // Taken care of in base
     }
 
     // --- Methods ---
