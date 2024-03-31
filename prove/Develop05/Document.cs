@@ -27,6 +27,10 @@ public class Document
     {
         return _contents;
     }
+    public void SetTranscript(List<List<string>> transcript)
+    {
+        _transcript = transcript;
+    }
 
     // --- Methods ---
     public void ReadFile()

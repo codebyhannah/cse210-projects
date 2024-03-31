@@ -1,0 +1,9 @@
+<~USER~><~@~>Hannah<~@~>30<~@~>630<~@~>2<~@~>1<~@~>
+<~SIMPLEGOAL~><~@~>A Simple Goal<~@~>Just an example of a simple goal<~@~>5<~@~>False<~@~>
+<~SIMPLEGOAL~><~@~>A Completed Goal<~@~>A Completed simple goal for variety<~@~>130<~@~>True<~@~>
+<~ETERNALGOAL~><~@~>Eternity<~@~>This one is an Eternal Goal. It is never complete, you can do it over and over forever.<~@~>10<~@~>
+<~CHECKLISTGOAL~><~@~>Check!<~@~>A checklist goal. These have to be done multiple times before they're complete.<~@~>25<~@~>False<~@~>2<~@~>4<~@~>50<~@~>
+<~SIMPLEGOAL~><~@~>A Simple Goal<~@~>Just an example of a simple goal<~@~>5<~@~>False<~@~>
+<~SIMPLEGOAL~><~@~>A Completed Goal<~@~>A Completed simple goal for variety<~@~>130<~@~>True<~@~>
+<~ETERNALGOAL~><~@~>Eternity<~@~>This one is an Eternal Goal. It is never complete, you can do it over and over forever.<~@~>10<~@~>
+<~CHECKLISTGOAL~><~@~>Check!<~@~>A checklist goal. These have to be done multiple times before they're complete.<~@~>25<~@~>False<~@~>2<~@~>4<~@~>50<~@~>

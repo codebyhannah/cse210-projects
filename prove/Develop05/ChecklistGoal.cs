@@ -14,6 +14,12 @@ public class ChecklistGoal : Goal
         _bonus = bonus;
         _current = 0;
     }
+    public ChecklistGoal(string title, string description, int points, bool complete, int target, int bonus, int current) : base (title, description, points, complete)
+    {
+        _target = target;
+        _bonus = bonus;
+        _current = current;
+    }
 
     // --- Methods ---
     public override string DisplayGoal()
@@ -33,6 +39,11 @@ public class ChecklistGoal : Goal
         {
             return _points;
         }
+    }
+    public override List<string> GetGoalInfoList()
+    {
+        List<string> goalInfo = new List<string>{"<~CHECKLISTGOAL~>",$"{_title}",$"{_description}",$"{_points}",$"{_complete}",$"{_current}",$"{_target}",$"{_bonus}"};
+        return goalInfo;
     }
 
 }

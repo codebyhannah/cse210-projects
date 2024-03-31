@@ -17,5 +17,10 @@ public class EternalGoal : Goal
     {
         return _points;
     }
+    public override List<string> GetGoalInfoList()
+    {
+        List<string> goalInfo = new List<string>{"<~ETERNALGOAL~>",$"{_title}",$"{_description}",$"{_points}"};
+        return goalInfo;
+    }
 
 }

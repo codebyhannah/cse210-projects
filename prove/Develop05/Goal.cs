@@ -17,6 +17,14 @@ public class Goal
         _points = points;
     }
 
+    public Goal(string title, string description, int points, bool complete)
+    {
+        _title = title;
+        _description = description;
+        _complete = complete;
+        _points = points;
+    }
+
     // --- Methods ---
     public virtual string DisplayGoal()
     {
@@ -39,6 +47,11 @@ public class Goal
     public bool IsComplete()
     {
         return _complete;
+    }
+    public virtual List<string> GetGoalInfoList()
+    {
+        List<string> goalInfo = new List<string>{"<~GOAL~>",$"{_title}",$"{_description}",$"{_points}",$"{_complete}"};
+        return goalInfo;
     }
 
 }

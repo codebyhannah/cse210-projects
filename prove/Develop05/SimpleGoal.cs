@@ -7,7 +7,15 @@ public class SimpleGoal : Goal
     {
         // Taken care of in base
     }
+    public SimpleGoal(string title, string description, int points, bool complete) : base (title, description, points, complete)
+    {
+        // Taken care of in base
+    }
 
     // --- Methods ---
-    // Taken care of in base
+    public override List<string> GetGoalInfoList()
+    {
+        List<string> goalInfo = new List<string>{"<~SIMPLEGOAL~>",$"{_title}",$"{_description}",$"{_points}",$"{_complete}"};
+        return goalInfo;
+    }
 }
