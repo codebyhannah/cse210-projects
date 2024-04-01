@@ -1,0 +1,76 @@
+Class : Menu
+Attributes:
+* _menuOptions : List<string>
+
+Constructors:
+* Menu(menuOptions : List<string>)
+
+Methods:
+* DisplayMenu() : void
+* ChooseMenuOption() : int
+
+
+Class : Shape
+Attributes:
+* _color : string
+
+Constructors:
+* Shape(color)
+
+Getters and Setters:
+* GetColor() : string
+* SetColor(color : string) : void
+
+Methods:
+* virtual GetArea() : double
+
+////
+    // Subclasses of Shape Class
+    Class : Square
+    // Derived from Shape Class
+    Attributes:
+    _side : double
+
+    Constructors:
+    * Square(side : double, color : string) : base(color)
+
+    Methods:
+    * override GetArea() : double
+
+
+    Class : Rectangle
+    // Derived from Shape Class
+    Attributes:
+    _length : double
+    _width : double
+
+    Constructors:
+    * Rectangle(length : double, width : double, color : string) : base(color)
+
+    Methods:
+    * override GetArea() : double
+
+
+    Class : Circle
+    // Derived from Shape Class
+    Attributes:
+    _radius : double
+
+    Constructors:
+    * Circle(radius : double, color : string) : base(color)
+
+    Methods:
+    * override GetArea() : double
+
+
+    Class : Triangle
+    // Derived from Shape Class
+    Attributes:
+    _base : double
+    _height : double
+
+    Constructors:
+    * Triangle(base : double, height : double, color : string) : base(color)
+
+    Methods:
+    * override GetArea() : double
