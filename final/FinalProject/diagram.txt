@@ -1,0 +1,138 @@
+Class : Menu
+Attributes:
+* _menuOptions : List<string>
+
+Constructors:
+* Menu(menuOptions : List<string>)
+
+Methods:
+* DisplayMenu() : void
+* ChooseMenuOption() : int
+
+
+Class : GameManager
+Attributes:
+* _GameOptions : List<string>
+
+Constructors:
+* GameManager()
+
+Methods:
+* Start();
+
+
+Class : Card
+Attributes:
+* _number : int
+* _suit : string
+* _card : string
+* _cardSymbols : List<List<string>>
+* _suitSymbols : List<string>
+* _deck : string    // For games with multiple decks involved, so that it can be kept track of if needed.
+* _serial : int    // Most useful for decks containing multiple of the same card, so it doesn't conflate them in methods such as Deck.Shuffle().
+
+Constructors:
+* Card(number : int, suit : string, serial : int = 0, deck : string = "deck")    // Deck defaults to "deck" so that different values for deck can be used when needed and ignored if not. Serial defaults to zero for use in cases when it is not needed, such as when creating a single card for uses such as displaying the back of a card, which is created as its own Card object.
+
+Getters and Setters:
+* GetDeck() : string
+* SetDeck(deck : string) : void
+
+Methods:
+* GetCardSymbolOnly() : string
+* GetCardForDisplay() : string
+
+
+Class : Deck
+Attributes:
+* _name : string    // This is what the _deck attribute in the Card class would be set to. 
+* _deck : List<Card>
+* _numJokers : int // Might be set anywhere from 0 to however many the game with the most jokers needs.
+* _type : string    // Standard 52 vs. other variations such as the 48 card pinochle deck. Can also be set to "empty" in the constructor to generate an empty deck that will be added to as the game is played.
+
+Constructors:
+* Deck(name : string, type : string = "empty")   // Defaults to set up an empty deck that will be added to as the game is played. The first option to be added here is the standard 52 deck as that deck is most commonly used in card games, but more options can be added in the future.
+
+Methods:
+* ShowDeck() : void
+* Shuffle() : List<Card>
+* Split(numDecks : int) : List<List<Card>>
+* SplitByDeck() : List<List<Card>>
+* Deal(numToDeal : int) : List<Card>    // Each card is removed from the _deck List<Card> attribute and added to a new list as it is "dealt", and the resulting list of Cards becomes the specified player's hand. Could use an if/else and iterate from 1 to 2 and back to deal cards one at a time back and forth between players with a timer to pause minutely between Cards, for effect.
+* Draw() : Card    // The Card is removed from the _deck and is then returned to be added to the player's hand or otherwise used/distributed.
+* PlusOne(card : Card) : void
+* PlusMany(cards : List<Card>) : void
+
+
+Class : Player
+Attributes:
+* _hand : Deck
+* _points : int    // Used to keep track of games won if points are not involved in the game.
+
+Constructors:
+* Player()
+
+Getters and Setters:
+* GetHand() : Deck
+* SetHand(deck : Deck) : void
+
+Methods:
+* Draw(deck : Deck) : void   // Calls the Deck.Draw() method on deck and adds the returned card to the player's hand.
+* UpdatePoints(points : int) : void
+
+////
+    // Subclasses of Player Class
+    Class : User
+    // Derived from Player Class
+
+    Constructors:
+    * User()
+
+    Methods:
+    * Play(prompt : string) : string   // Displays prompt and returns user response.
+
+
+    Class : Computer
+    // Derived from Player Class
+
+    Constructors:
+    * Computer()
+
+
+Class : Game    // Abstract class? Interface?
+Attributes:
+* protected _numDecks : int
+* protected _deckType : string
+* protected _rules : string
+
+Constructors:
+* Game()    // Readies _numDecks decks of _deckType, with names set by iteration. Ex: deck1, deck2, deck3, etc.
+
+Methods:
+* abstract Start() : void
+* abstract Round() : void
+
+////
+    // Subclasses of Game Class
+    Class : KingsInTheCorner
+    // Derived from Game Class
+    Attributes:
+    * _north : Deck
+    * _east : Deck
+    * _south : Deck
+    * _west : Deck
+    * _northEast : Deck
+    * _southEast : Deck
+    * _southWest : Deck
+    * _northWest : Deck
+    * _sidesAndCorners : List<Deck>
+
+    Constructors:
+    * KingsInTheCorner()
+
+    Methods:
+    * override Start() : void
+    * override Round() : void
+    * Turn(player : Player) : int    // Calls the Player.Draw() method, Game.Play() method, and any other methods necessary for a player to take a turn in that game. Returns points earned, or if no points involved, checks if the game is over and who won if so.
+    * Play(player : Player) : void  // if/else tree that depends on player subclass to decide what it does calls User.Play() method which displays a prompt (provided here) and gets a response from the user which is used to determine what they do. If player cannot play, calls the Player.Draw() method.
+    * moveStack() : void // Automatically places player's highest card unless they have multiple of the highest value, in which case the player chooses which to place?
