@@ -13,5 +13,5 @@ public class Computer : Player
     // --- Getters and Setters ---
 
     // --- Methods ---
-    
+
 }

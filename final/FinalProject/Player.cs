@@ -3,7 +3,7 @@ using System;
 public class Player
 {
     // --- Attributes ---
-    private Deck _hand;
+    private Deck _hand = new Deck("hand");
     private int _points; // Can be used to keep track of number of games won if points are not involved in the game.
 
     // --- Constructors ---
@@ -18,9 +18,9 @@ public class Player
     {
         return _hand;
     }
-    public void SetHand(Deck hand)
+    public void SetHand(List<Card> hand)
     {
-        _hand = hand;
+        _hand.SetDeck(hand);
     }
 
     // --- Methods ---
@@ -32,6 +32,14 @@ public class Player
     public void UpdatePoints(int points)
     {
         _points += points;
+    }
+    public string GetHandForDisplay()
+    {
+        return GetHand().GetDeckForDisplay();
+    }
+    public string GetHiddenHandForDisplay()
+    {
+        return GetHand().GetHiddenDeckForDisplay();
     }
 
 }

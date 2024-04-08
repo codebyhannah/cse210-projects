@@ -46,6 +46,14 @@ public class Card
     }
 
     // --- Getters and Setters ---
+    public int GetNumber()
+    {
+        return _number;
+    }
+    public string GetSuit()
+    {
+        return _suit;
+    }
     public string GetDeck()
     {
         return _deck;

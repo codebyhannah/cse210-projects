@@ -28,7 +28,6 @@ public class GameManager
         {
             Console.WriteLine("Goodbye!");
             Console.WriteLine();
-            Thread.Sleep(500);
         }
     }
 }

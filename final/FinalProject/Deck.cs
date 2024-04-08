@@ -7,6 +7,7 @@ public class Deck
     private List<Card> _deck = new List<Card>();
     private int _numJokers; // Might be set anywhere from 0 to however many the game with the most jokers needs.
     private string _type; // Standard 52 vs. other variations such as the pinochle deck. Can also be set to "empty" in the constructor to generate an empty deck that will be added to as the game is played.
+    private Aesthetic _aesthetic = new Aesthetic();
 
     // --- Constructors ---
     public Deck(string name, string type = "empty", int numJokers = 0) 
@@ -68,29 +69,38 @@ public class Deck
     {
         _deck = deck;
     }
+    public string GetName()
+    {
+        return _name;
+    }
 
     // --- Methods ---
-    public void ShowDeck()
+    public string GetDeckForDisplay()
     {
         string deckString = "";
-        foreach (Card card in _deck)
+        if (_deck.Count > 0)
         {
-            if (card.GetCardForDisplay().Length > 7)
+            foreach (Card card in _deck)
             {
-                deckString += String.Format("|{0,9} ", card.GetCardForDisplay());
+                deckString += $"| {card.GetCardForDisplay()} ";
             }
-            else if (card.GetCardForDisplay().Length > 6)
-            {
-                deckString += String.Format("|{0,8} ", card.GetCardForDisplay());
-            }
-            else
-            {
-                deckString += String.Format("|{0,7} ", card.GetCardForDisplay());
-            }
-            //Console.WriteLine(card.GetCardForDisplay());
+            deckString += "|";
         }
-        deckString += "|";
-        Console.WriteLine(deckString);
+        return deckString;
+    }
+    public string GetHiddenDeckForDisplay()
+    {
+        string deckString = "";
+        Card back = new Card(2,"other");
+        if (_deck.Count > 0)
+        {
+            foreach (Card card in _deck)
+            {
+                deckString += $"| {back.GetCardSymbolOnly()} ";
+            }
+            deckString += "|";
+        }
+        return deckString;
     }
     public List<Card> Shuffle()
     {
