@@ -42,4 +42,9 @@ public class Player
         return GetHand().GetHiddenDeckForDisplay();
     }
 
+    public virtual string Play(string prompt)
+    {
+        return "";
+    }
+
 }

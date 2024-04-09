@@ -17,5 +17,5 @@ abstract public class Game // Abstract class? Interface?
 
     // --- Methods ---
     public abstract void Start();
-    public abstract void Round();
+    public abstract bool Round(int goesFirst);
 }

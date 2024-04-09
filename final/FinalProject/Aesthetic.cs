@@ -13,7 +13,7 @@ public class Aesthetic
     // --- Getters and Setters ---
 
     // --- Methods ---
-    public void WriteCenterText(string text)
+    public void WriteCenterText(string text, bool newLine = true)
     {
         if (text.Length <= Console.WindowWidth)
         {
@@ -25,7 +25,16 @@ public class Aesthetic
             int indent = (Console.WindowWidth - text2.Length) / 2;
             Console.SetCursorPosition(indent,Console.CursorTop);  
         }
-        Console.WriteLine(text);
+        Console.Write(text);
+        if (newLine)
+        {
+            Console.WriteLine();
+        }
+    }
+    public void Center()
+    {
+        int indent = Console.WindowWidth / 2;
+        Console.SetCursorPosition(indent,Console.CursorTop);  
     }
     public void FullWindowTextLine(string textToRepeat)
     {
