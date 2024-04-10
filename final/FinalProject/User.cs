@@ -3,7 +3,7 @@ using System;
 public class User : Player
 {
     // --- Attributes ---
-    Aesthetic _aesthetic = new Aesthetic();
+    private Aesthetic _aesthetic = new Aesthetic();
     // --- Constructors ---
     public User() : base()
     {

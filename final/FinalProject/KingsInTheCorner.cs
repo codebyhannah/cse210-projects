@@ -49,7 +49,7 @@ public class KingsInTheCorner : Game
             round += 1;
         } while (!over);
     }
-    public override bool Round(int goesFirst, int round)
+    protected override bool Round(int goesFirst, int round)
     {
         Console.Clear(); Console.WriteLine("\x1b[3J"); Console.Clear();
         Console.WriteLine($"Round number {round}");

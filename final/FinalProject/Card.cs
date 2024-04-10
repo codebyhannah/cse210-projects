@@ -98,6 +98,5 @@ public class Card
         {
             return $"{_card} {_number} {_suit}";
         }
-
     }
 }

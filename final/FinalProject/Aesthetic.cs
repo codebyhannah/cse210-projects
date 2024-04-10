@@ -3,7 +3,7 @@ using System;
 public class Aesthetic
 {
     // --- Attributes ---
-    List<string> _doubledCharacters = new List<string>{"🂡","🂢","🂣","🂤","🂥","🂦","🂧","🂨","🂩","🂪","🂫","🂭","🂮","🂱","🂲","🂳","🂴","🂵","🂶","🂷","🂸","🂹","🂺","🂻","🂽","🂾","🃑","🃒","🃓","🃔","🃕","🃖","🃗","🃘","🃙","🃚","🃛","🃝","🃞","🃁","🃂","🃃","🃄","🃅","🃆","🃇","🃈","🃉","🃊","🃋","🃍","🃎","🃟","🂠",}; // A list of string characters I have discovered to be counted as two char characters, including in string length, for some reason.
+    private List<string> _doubledCharacters = new List<string>{"🂡","🂢","🂣","🂤","🂥","🂦","🂧","🂨","🂩","🂪","🂫","🂭","🂮","🂱","🂲","🂳","🂴","🂵","🂶","🂷","🂸","🂹","🂺","🂻","🂽","🂾","🃑","🃒","🃓","🃔","🃕","🃖","🃗","🃘","🃙","🃚","🃛","🃝","🃞","🃁","🃂","🃃","🃄","🃅","🃆","🃇","🃈","🃉","🃊","🃋","🃍","🃎","🃟","🂠",}; // A list of string characters I have discovered to be counted as two char characters, including in string length, for some reason.
     // --- Constructors ---
     public Aesthetic()
     {
