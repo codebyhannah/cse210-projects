@@ -18,7 +18,7 @@ public class KingsInTheCorner : Game
     // --- Constructors ---
     public KingsInTheCorner() : base()
     {
-        _rules = "Each player is dealt seven cards. The remaining cards are placed in the center as the drawpile, and the top four cards are turned over, placing one on each on the four sides of the deck as the beginning stacks.\nPlayers begin each turn by drawing one card from the drawpile. They make as many valid moves as possible during their turn to get rid of as many cards as possible from their hand.\nCards must be played alternating red and black in numerical sequence, lower values on top of the next value up. Aces are the lowest card.\nKings, and only kings, may be played in the corner. Once a king is in a corner, players may build off of it like any other stack.\nPlayers may also move an entire stack onto another stack, providing that the last card of the destination stack and the first card of the moving stack are in valid sequence. Player must then play their highest card on the newly empty stack.\nThe first player to lose all of their cards wins.";
+        _rules = "Each player is dealt seven cards. The remaining cards are placed in the center as the drawpile, and the top four cards are turned over, placing one on each on the four sides of the deck as the beginning stacks.\nPlayers begin each turn by drawing one card from the drawpile. They make as many valid moves as possible during their turn to get rid of as many cards as possible from their hand.\nCards must be played alternating red and black in numerical sequence, lower values on top of the next value up. Hearts and Diamonds are red, while Clubs and Spades are black. Aces are the lowest card.\nKings, and only kings, may be played in the corner. Once a king is in a corner, players may build off of it like any other stack.\nPlayers may also move an entire stack onto another stack, providing that the last card of the destination stack and the first card of the moving stack are in valid sequence. Player must then play their highest card on the newly empty stack.\nThe first player to lose all of their cards wins.";
         _deckType = "52 standard";
         _numDecks = 1;
         _drawPile = new Deck("draw", _deckType);
@@ -160,7 +160,7 @@ public class KingsInTheCorner : Game
                         {
                             invalid = "That is not a valid selection. ";
                         }
-                        cardValueString = player.Play($"{invalid}Please enter the value or letter of the card (from your hand) that you wish to play (Ex: 🂾 K ♥ => 'K', 🂧 7 ♠ => '7', 🃊 10 ♦ => '10', 🃛 J ♣ => 'J'): ").ToLower();
+                        cardValueString = player.Play($"{invalid}Please enter the value or letter of the card (from your hand) that you wish to play (Ex: 🂾 K ♥ => 'K', 🂧 7 ♠ => '7', 🃊 10 ♦ => '10', 🃛 J ♣ => 'J'), or enter 'back' to choose another option: ").ToLower();
                         if (cardValueString == "a")
                         {
                             cardValueString = "1";
@@ -179,61 +179,12 @@ public class KingsInTheCorner : Game
                         }
                         Console.WriteLine();
                         i++;
-                    } while (!(int.TryParse(cardValueString, out int n) && n < 14 && n > 0));
-                    int cardValue = int.Parse(cardValueString);
-                    i = 0;
-                    string cardSuit;
-                    do
+                    } while (cardValueString != "back" && !(int.TryParse(cardValueString, out int n) && n < 14 && n > 0));
+                    if (cardValueString != "back")
                     {
-                        string invalid = "";
-                        if (i != 0)
-                        {
-                            invalid = "That is not a valid selection. ";
-                        }
-                        cardSuit = player.Play($"{invalid}Please enter the first letter of the suit of the card (from your hand) that you wish to play (Ex: 🂾 K ♥ => 'H', 🂧 7 ♠ => 'S', 🃊 10 ♦ => 'D', 🃛 J ♣ => 'C'): ").ToLower();
-                        Console.WriteLine();
-                        if (cardSuit == "h")
-                        {
-                            cardSuit = "♥";
-                        }
-                        else if (cardSuit == "s")
-                        {
-                            cardSuit = "♠";
-                        }
-                        else if (cardSuit == "d")
-                        {
-                            cardSuit = "♦";
-                        }
-                        else if (cardSuit == "c")
-                        {
-                            cardSuit = "♣";
-                        }
-                        i++;
-                    } while (cardSuit != "♥" && cardSuit != "♠" && cardSuit != "♦" && cardSuit != "♣");
-                    bool inHand = false;
-                    Deck hand = player.GetHand();
-                    Card card = new Card(1, "other");
-                    foreach(Card handCard in hand.GetDeck())
-                    {
-                        if (handCard.GetSuit() == cardSuit)
-                        {
-                            if (handCard.GetNumber() == cardValue)
-                            {
-                                inHand = true;
-                                card = handCard;
-                            }
-                        }
-                    }
-                    if (inHand == false)
-                    {
-                        _aesthetic.WriteCenterText("This card is not in your hand, please try again.");
-                        _aesthetic.DisplayPauseAnimation("dots",3);
-                        valid = false;
-                    }
-                    else
-                    {
+                        int cardValue = int.Parse(cardValueString);
                         i = 0;
-                        string stack;
+                        string cardSuit;
                         do
                         {
                             string invalid = "";
@@ -241,12 +192,82 @@ public class KingsInTheCorner : Game
                             {
                                 invalid = "That is not a valid selection. ";
                             }
-                            stack = player.Play($"{invalid}Please enter the name/label of the stack you wish to play your card on (Ex: 'E', 'NW'): ").ToLower();
+                            cardSuit = player.Play($"{invalid}Please enter the first letter of the suit of the card (from your hand) that you wish to play (Ex: 🂾 K ♥ => 'H', 🂧 7 ♠ => 'S', 🃊 10 ♦ => 'D', 🃛 J ♣ => 'C'), or enter 'back' to choose another option: ").ToLower();
                             Console.WriteLine();
+                            if (cardSuit == "h")
+                            {
+                                cardSuit = "♥";
+                            }
+                            else if (cardSuit == "s")
+                            {
+                                cardSuit = "♠";
+                            }
+                            else if (cardSuit == "d")
+                            {
+                                cardSuit = "♦";
+                            }
+                            else if (cardSuit == "c")
+                            {
+                                cardSuit = "♣";
+                            }
                             i++;
-                        } while (stack != "n" && stack != "e" && stack != "s" && stack != "w" && stack != "ne" && stack != "se" && stack != "sw" && stack != "nw");
-                        valid = PlayCard(player, card, stack);
+                        } while (cardValueString != "back" && cardSuit != "♥" && cardSuit != "♠" && cardSuit != "♦" && cardSuit != "♣");
+                        if (cardValueString != "back")
+                        {
+                            bool inHand = false;
+                            Deck hand = player.GetHand();
+                            Card card = new Card(1, "other");
+                            foreach(Card handCard in hand.GetDeck())
+                            {
+                                if (handCard.GetSuit() == cardSuit)
+                                {
+                                    if (handCard.GetNumber() == cardValue)
+                                    {
+                                        inHand = true;
+                                        card = handCard;
+                                    }
+                                }
+                            }
+                            if (inHand == false)
+                            {
+                                _aesthetic.WriteCenterText("This card is not in your hand, please try again.");
+                                _aesthetic.DisplayPauseAnimation("dots",3);
+                                valid = false;
+                            }
+                            else
+                            {
+                                i = 0;
+                                string stack;
+                                do
+                                {
+                                    string invalid = "";
+                                    if (i != 0)
+                                    {
+                                        invalid = "That is not a valid selection. ";
+                                    }
+                                    stack = player.Play($"{invalid}Please enter the name/label of the stack you wish to play your card on (Ex: 'E', 'NW'), or enter 'back' to choose another option: ").ToLower();
+                                    Console.WriteLine();
+                                    i++;
+                                } while (stack != "back" && stack != "n" && stack != "e" && stack != "s" && stack != "w" && stack != "ne" && stack != "se" && stack != "sw" && stack != "nw");
+                                if (stack != "back")
+                                {
+                                    valid = PlayCard(player, card, stack);
+                                }
+                                else
+                                {
+                                    valid = false;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            valid = false;
+                        }
                     }
+                    else
+                    {
+                        valid = false;
+                    } 
                 }
                 else if (whatDo == "move")
                 {
@@ -261,44 +282,69 @@ public class KingsInTheCorner : Game
                         {
                             invalid = "That is not a valid selection. ";
                         }
-                        stack1 = player.Play($"{invalid}Please enter the name/label of the stack you wish to move (Ex: 'N', 'SE'): ").ToLower();
+                        stack1 = player.Play($"{invalid}Please enter the name/label of the stack you wish to move (Ex: 'N', 'SE'), or enter 'back' to choose another option: ").ToLower();
                         Console.WriteLine();
                         i++;
-                    } while (stack1 != "n" && stack1 != "e" && stack1 != "s" && stack1 != "w" && stack1 != "ne" && stack1 != "se" && stack1 != "sw" && stack1 != "nw");
-                    i = 0;
-                    string stack2;
+                    } while (stack1 != "back" && stack1 != "n" && stack1 != "e" && stack1 != "s" && stack1 != "w" && stack1 != "ne" && stack1 != "se" && stack1 != "sw" && stack1 != "nw");
+                    if (stack1 != "back")
+                    {
+                        i = 0;
+                        string stack2;
+                        do
+                        {
+                            string invalid = "";
+                            if (i != 0)
+                            {
+                                invalid = "That is not a valid selection. ";
+                            }
+                            stack2 = player.Play($"{invalid}Please enter the name/label of the stack you wish to move the contents of the first stack to (Ex: 'NW', 'S'), or enter 'back' to choose another option: ").ToLower();
+                            Console.WriteLine();
+                            i++;
+                        } while (stack2 != "back" && stack2 != "n" && stack2 != "e" && stack2 != "s" && stack2 != "w" && stack2 != "ne" && stack2 != "se" && stack2 != "sw" && stack2 != "nw");
+                        if (stack2 != "back")
+                        {
+                            valid = MoveStack(player, stack1, stack2);
+                        }
+                        else
+                        {
+                            valid = false;
+                        }
+                    }
+                    else
+                    {
+                        valid = false;
+                    }
+                }
+                else if (whatDo == "draw")
+                {
+                    // Draw card
+                    int i = 0;
+                    string draw;
                     do
                     {
                         string invalid = "";
                         if (i != 0)
                         {
-                            invalid = "That is not a valid selection. ";
+                            invalid = "That is not a valid response. ";
                         }
-                        stack2 = player.Play($"{invalid}Please enter the name/label of the stack you wish to move the contents of the first stack to (Ex: 'NW', 'S'): ").ToLower();
+                        draw = player.Play($"{invalid}Please enter 'draw' to draw a card, or enter 'back' to choose another option: ").ToLower();
                         Console.WriteLine();
                         i++;
-                    } while (stack2 != "n" && stack2 != "e" && stack2 != "s" && stack2 != "w" && stack2 != "ne" && stack2 != "se" && stack2 != "sw" && stack2 != "nw");
-
-                    valid = MoveStack(player, stack1, stack2);
-
-                    // add necessary play of highest card in hand to newly empty stack
-
-
-
-                }
-                else if (whatDo == "draw")
-                {
-                    // Draw card
-                    if (_drawPile.GetDeck().Count != 0)
+                    } while (draw != "back" && draw != "draw");
+                    if (draw != "back")
                     {
-                        player.Draw(_drawPile);
-                        DisplayHandsAndStacks();
+                        if (_drawPile.GetDeck().Count != 0)
+                        {
+                            player.Draw(_drawPile);
+                            DisplayHandsAndStacks();
+                        }
+                        else
+                        {
+                            _aesthetic.WriteCenterText("Drawpile empty");
+                            DisplayHandsAndStacks();
+                        }
                     }
-                    else
-                    {
-                        _aesthetic.WriteCenterText("Drawpile empty");
-                    }
-                    valid = false;
+                    valid = false;    
                 }
                 else if (whatDo == "done" || player.GetHand().GetDeck().Count == 0)
                 {
