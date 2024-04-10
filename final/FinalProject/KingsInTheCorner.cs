@@ -56,8 +56,7 @@ public class KingsInTheCorner : Game
         bool over = false;
         do
         {
-            //over = Round(goesFirst);
-            over = true;
+            over = Round(goesFirst);
         } while (!over);
         if (over)
         {
