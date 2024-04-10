@@ -44,7 +44,7 @@ public class Aesthetic
         }
         Console.WriteLine();
     }
-    public void CenteredTextLine(string textToRepeat, int len)
+    public void CenteredLineOfCharacters(string textToRepeat, int len)
     {
         string textLine = "";
         for (int i = 0; i < len; i++)
@@ -58,4 +58,111 @@ public class Aesthetic
         int indent = Console.WindowWidth - len;
         Console.SetCursorPosition(indent,Console.CursorTop);
     }
+    public void DisplayPauseAnimation(string spinnerType, int timeLength, int includeZero = -1)
+    {
+        DateTime startTime = DateTime.Now;
+        DateTime endTime = startTime.AddSeconds(timeLength);
+        DateTime currentTime;
+        int len;
+        if(spinnerType == "spin")
+        {
+            int i = 1;
+            do
+            {         
+                len = 250;
+                if (i == 1)
+                {
+                    Console.Write("|   ");
+                    Thread.Sleep(len);
+                    Console.Write("\b \b\b \b\b \b\b \b");
+                    i++;
+                }
+                else if (i == 2)
+                {
+                    Console.Write("/   ");
+                    Thread.Sleep(len);
+                    Console.Write("\b \b\b \b\b \b\b \b");
+                    i++;
+                }
+                else if (i == 3)
+                {
+                    Console.Write("--  ");
+                    Thread.Sleep(len);
+                    Console.Write("\b \b\b \b\b \b\b \b");
+                    i++;
+                }
+                else if (i == 4)
+                {
+                    Console.Write(@"\   ");
+                    Thread.Sleep(len);
+                    Console.Write("\b \b\b \b\b \b\b \b");
+                    i = 1;
+                }
+                currentTime = DateTime.Now;
+            } while(currentTime < endTime);
+        }
+        else if (spinnerType == "dots")
+        { 
+            len = 500;
+            int i = 1;
+            do
+            {            
+                if (i == 1)
+                {
+                    Console.Write(".     ");
+                    Thread.Sleep(len);
+                    Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b");
+                    i++;
+                }
+                else if (i == 2)
+                {
+                    Console.Write("..    ");
+                    Thread.Sleep(len);
+                    Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b");
+                    i++;
+                }
+                else if (i == 3)
+                {
+                    Console.Write("...   ");
+                    Thread.Sleep(len);
+                    Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b");
+                    i++;
+                }
+                else if (i == 4)
+                {
+                    Console.Write("      ");
+                    Thread.Sleep(len);
+                    Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b");
+                    i = 1;
+                }
+                currentTime = DateTime.Now;
+            } while(currentTime < endTime);
+        }
+        else if (spinnerType == "countdown")
+        { 
+            len = 1000;
+            int i = timeLength;
+            do
+            {            
+                Console.Write($"{i}   ");
+                Thread.Sleep(len);
+                // Remove tab
+                Console.Write("\b \b\b \b\b \b");
+                // Remove number (any length of characters)
+                for (int k = i.ToString().Length; k > 0; k--)
+                {
+                    Console.Write("\b \b");
+                }
+                i--;
+                currentTime = DateTime.Now;
+            } while(currentTime < endTime);
+            if (includeZero == 0)
+            {
+                Console.Write($"0   ");
+                Thread.Sleep(len);
+                Console.Write("\b \b\b \b\b \b\b \b");
+            }   
+        }
+    }
+
 }

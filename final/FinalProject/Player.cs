@@ -4,7 +4,7 @@ public class Player
 {
     // --- Attributes ---
     private Deck _hand = new Deck("hand");
-    private int _points; // Can be used to keep track of number of games won if points are not involved in the game.
+    private int _points = 0; // Can be used to keep track of number of games won if points are not involved in the game.
 
     // --- Constructors ---
     public Player()
@@ -21,6 +21,10 @@ public class Player
     public void SetHand(List<Card> hand)
     {
         _hand.SetDeck(hand);
+    }
+    public int GetPoints()
+    {
+        return _points;
     }
 
     // --- Methods ---
