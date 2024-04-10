@@ -186,11 +186,20 @@ public class Deck
         }
         return dealt;
     }
-    public Card Draw()
+    public Card Draw(int index = 0)
     {
         // The Card is removed from the _deck and is then returned to be added to the player's hand or otherwise used/distributed.
-        Card card = _deck[0];
-        _deck.RemoveAt(0);
+        Card card;
+        if (_deck.Count == 0)
+        {
+            _aesthetic.WriteCenterText("Deck empty");
+            card = new Card(2, "other");
+        }
+        else
+        {
+            card = _deck[index];
+            _deck.RemoveAt(index);
+        }
         return card;
     }
     public void PlusOne(Card card)

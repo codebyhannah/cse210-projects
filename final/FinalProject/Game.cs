@@ -17,5 +17,5 @@ abstract public class Game // Abstract class? Interface?
 
     // --- Methods ---
     public abstract void Start();
-    public abstract bool Round(int goesFirst);
+    public abstract bool Round(int goesFirst, int round/*remove when done debugging*/);
 }

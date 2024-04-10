@@ -42,166 +42,360 @@ public class KingsInTheCorner : Game
         int goesFirst = randomGenerator.Next(1, 2);
 
         bool over = false;
+        int round = 0; // remove when done debugging, and let console clearing happen in DisplayHandsAndStacks again
         do
         {
-            Round(goesFirst);
-            over = true;
+            over = Round(goesFirst, round);
+            round += 1;
         } while (!over);
     }
-    public override bool Round(int goesFirst)
+    public override bool Round(int goesFirst, int round)
     {
+        Console.Clear(); Console.WriteLine("\x1b[3J"); Console.Clear();
+        Console.WriteLine($"Round number {round}");
+        goesFirst = 1; // keeps it as user for debug, remove when done.
         bool over = false;
         DisplayHandsAndStacks();
         // First player turn
         if (goesFirst == 1)
         {
-            Turn(_user);
+            over = Turn(_user);
         }
         else if (goesFirst == 2)
         {
-            Turn(_computer);
+            over = Turn(_computer);
         }
-        // Second player turn
-        if (goesFirst == 1)
+        if (!over)
         {
-            Turn(_computer);
+            // Second player turn
+            if (goesFirst == 1)
+            {
+                over = Turn(_computer);
+            }
+            else if (goesFirst == 2)
+            {
+                over = Turn(_user);
+            }
         }
-        else if (goesFirst == 2)
-        {
-            Turn(_user);
-        }
-
-
-        over = true;
-
         return over;
     }
-    private void Turn(Player player)
+    private bool Turn(Player player)
     {
-        // Calls the Player.Draw() method, Game.Play() method, and any other methods necessary for a player to take a turn in that game. Returns points earned, or if no points involved, checks if the game is over and who won if so.
-
-        player.Draw(_drawPile);
+        bool over = false;
+        // Calls the Player.Draw() method and Game.Play() method. Checks if the game is over and updates the winner if so.
+        if (_drawPile.GetDeck().Count != 0)
+        {
+            player.Draw(_drawPile);
+        }
+        DisplayHandsAndStacks();
         Play(player);
 
         if (player.GetHand().GetDeck().Count == 0)
         {
             int points = 1;
             player.UpdatePoints(points);
+            over = true;
         }
+        return over;
     }
     private void Play(Player player)
     {
         // Pick whether to play a card, move a stack, or draw a card
-
-        //do while !validity
-        string whatDo = player.Play("Enter 'play' to play a card, 'move' to move a stack, or 'draw' to draw a new card from the deck: ").ToLower();
+        bool valid = false;
         do
         {
-            if (player.GetType().Name.ToLower() == "computer")
+            Console.WriteLine();
+            string whatDo;
+            do
             {
-                whatDo = "auto";
-
-
-
-
-            }
-            else if (whatDo == "play")
-            {
-                // Play card
-                int i = 0;
-                string cardString;
-                do
+                whatDo = player.Play("Enter 'play' to play a card, 'move' to move a stack, 'draw' to draw a new card from the deck, or 'done' when finished with turn: ").ToLower();
+                Console.WriteLine();
+                if (player.GetType().Name.ToLower() == "computer")
                 {
-                    string invalid = "";
-                    if (i != 0)
-                    {
-                        invalid = "That is not a valid selection. ";
-                    }
-                    cardString = player.Play($"{invalid}Please enter the value or letter and first letter of the suit of the card (from your hand) that you wish to play (Ex: 🂾 K ♥ => 'K H', 🂧 7 ♠ => '7 S', 🃊 10 ♦ => '10 D', 🃛 J ♣ => 'J C'): ").ToLower();
-                    i++;
-                } while (cardString != "thing");
+                    whatDo = "auto";
+                    _aesthetic.WriteCenterText("Computer Turn", false);
+                    // pause dots here, add as a pause class or as a method of computer
+                    // slight pause of thread between actions, to allow user to see each move the computer makes individually, and make it feel more natural
 
-                // foreach card in hand if card.getnumber && card.getsuit are equal to the entered stuff
+                    // placeholder stuff
+
+                    Console.WriteLine();
+                    valid = true;
 
 
-                Card card = new Card(1,"other"); // placeholder
-
-                i = 0;
-                string stack;
-                do
+                }
+                else if (whatDo == "play")
                 {
-                    string invalid = "";
-                    if (i != 0)
+                    // Play card
+                    int i = 0;
+                    string cardValueString;
+                    do
                     {
-                        invalid = "That is not a valid selection. ";
+                        string invalid = "";
+                        if (i != 0)
+                        {
+                            invalid = "That is not a valid selection. ";
+                        }
+                        cardValueString = player.Play($"{invalid}Please enter the value or letter of the card (from your hand) that you wish to play (Ex: 🂾 K ♥ => 'K', 🂧 7 ♠ => '7', 🃊 10 ♦ => '10', 🃛 J ♣ => 'J'): ").ToLower();
+                        if (cardValueString == "a")
+                        {
+                            cardValueString = "1";
+                        }
+                        else if (cardValueString == "j")
+                        {
+                            cardValueString = "11";
+                        }
+                        else if (cardValueString == "q")
+                        {
+                            cardValueString = "12";
+                        }
+                        else if (cardValueString == "k")
+                        {
+                            cardValueString = "13";
+                        }
+                        Console.WriteLine();
+                        i++;
+                    } while (!(int.TryParse(cardValueString, out int n) && n < 14 && n > 0));
+                    int cardValue = int.Parse(cardValueString);
+                    i = 0;
+                    string cardSuit;
+                    do
+                    {
+                        string invalid = "";
+                        if (i != 0)
+                        {
+                            invalid = "That is not a valid selection. ";
+                        }
+                        cardSuit = player.Play($"{invalid}Please enter the first letter of the suit of the card (from your hand) that you wish to play (Ex: 🂾 K ♥ => 'H', 🂧 7 ♠ => 'S', 🃊 10 ♦ => 'D', 🃛 J ♣ => 'C'): ").ToLower();
+                        Console.WriteLine();
+                        if (cardSuit == "h")
+                        {
+                            cardSuit = "♥";
+                        }
+                        else if (cardSuit == "s")
+                        {
+                            cardSuit = "♠";
+                        }
+                        else if (cardSuit == "d")
+                        {
+                            cardSuit = "♦";
+                        }
+                        else if (cardSuit == "c")
+                        {
+                            cardSuit = "♣";
+                        }
+                        i++;
+                    } while (cardSuit != "♥" && cardSuit != "♠" && cardSuit != "♦" && cardSuit != "♣");
+                    bool inHand = false;
+                    Deck hand = player.GetHand();
+                    Card card = new Card(1, "other");
+                    foreach(Card handCard in hand.GetDeck())
+                    {
+                        if (handCard.GetSuit() == cardSuit)
+                        {
+                            if (handCard.GetNumber() == cardValue)
+                            {
+                                inHand = true;
+                                card = handCard;
+                            }
+                        }
                     }
-                    stack = player.Play($"{invalid}Please enter the name/label of the stack you wish to play your card on (Ex: 'E', 'NW'): ").ToLower();
-                    i++;
-                } while (stack != "n" && stack != "e" && stack != "s" && stack != "w" && stack != "ne" && stack != "se" && stack != "sw" && stack != "nw");
-
-                PlayCard(card, stack);
-            }
-            else if (whatDo == "move")
-            {
-                // Move stack
-                int i = 0;
-                string stack1;
-                do
+                    if (inHand == false)
+                    {
+                        _aesthetic.WriteCenterText("This card is not in your hand, please try again.");
+                        Console.ReadLine();
+                        valid = false;
+                    }
+                    else
+                    {
+                        i = 0;
+                        string stack;
+                        do
+                        {
+                            string invalid = "";
+                            if (i != 0)
+                            {
+                                invalid = "That is not a valid selection. ";
+                            }
+                            stack = player.Play($"{invalid}Please enter the name/label of the stack you wish to play your card on (Ex: 'E', 'NW'): ").ToLower();
+                            Console.WriteLine();
+                            i++;
+                        } while (stack != "n" && stack != "e" && stack != "s" && stack != "w" && stack != "ne" && stack != "se" && stack != "sw" && stack != "nw");
+                        valid = PlayCard(player, card, stack);
+                    }
+                }
+                else if (whatDo == "move")
                 {
-                    string invalid = "";
-                    if (i != 0)
+                    // Move stack
+                    int i = 0;
+                    string stack1;
+                    do
                     {
-                        invalid = "That is not a valid selection. ";
-                    }
-                    stack1 = player.Play($"{invalid}Please enter the name/label of the stack you wish to move (Ex: 'N', 'SE'): ").ToLower();
-                    i++;
-                } while (stack1 != "n" && stack1 != "e" && stack1 != "s" && stack1 != "w" && stack1 != "ne" && stack1 != "se" && stack1 != "sw" && stack1 != "nw");
+                        string invalid = "";
+                        if (i != 0)
+                        {
+                            invalid = "That is not a valid selection. ";
+                        }
+                        stack1 = player.Play($"{invalid}Please enter the name/label of the stack you wish to move (Ex: 'N', 'SE'): ").ToLower();
+                        Console.WriteLine();
+                        i++;
+                    } while (stack1 != "n" && stack1 != "e" && stack1 != "s" && stack1 != "w" && stack1 != "ne" && stack1 != "se" && stack1 != "sw" && stack1 != "nw");
+                    i = 0;
+                    string stack2;
+                    do
+                    {
+                        string invalid = "";
+                        if (i != 0)
+                        {
+                            invalid = "That is not a valid selection. ";
+                        }
+                        stack2 = player.Play($"{invalid}Please enter the name/label of the stack you wish to move the contents of the first stack to (Ex: 'NW', 'S'): ").ToLower();
+                        Console.WriteLine();
+                        i++;
+                    } while (stack2 != "n" && stack2 != "e" && stack2 != "s" && stack2 != "w" && stack2 != "ne" && stack2 != "se" && stack2 != "sw" && stack2 != "nw");
 
-                i = 0;
-                string stack2;
-                do
+                    valid = MoveStack(stack1, stack2);
+                }
+                else if (whatDo == "draw")
                 {
-                    string invalid = "";
-                    if (i != 0)
+                    // Draw card
+                    player.Draw(_drawPile);
+                    DisplayHandsAndStacks();
+                    valid = false;
+                }
+                else if (whatDo == "done")
+                {
+                    if (!valid)
                     {
-                        invalid = "That is not a valid selection. ";
+                        // Which would mean that neither a card has been succesfully played nor a stack successfully moved.
+                        _aesthetic.WriteCenterText("You must play at least one card or move at least one stack before your turn is over. If you cannot do either, draw cards until you can.");
+                        Console.ReadLine();
                     }
-                    stack2 = player.Play($"{invalid}Please enter the name/label of the stack you wish to move the contents of the first stack to (Ex: 'NW', 'S'): ").ToLower();
-                    i++;
-                } while (stack2 != "n" && stack2 != "e" && stack2 != "s" && stack2 != "w" && stack2 != "ne" && stack2 != "se" && stack2 != "sw" && stack2 != "nw");
+                }
 
-                MoveStack(stack1, stack2);
-            }
-            else if (whatDo == "draw")
-            {
-                // Draw card
-                player.Draw(_drawPile);
-                DisplayHandsAndStacks();
-            }
-
-        } while (whatDo != "play" && whatDo != "move" && whatDo != "draw" && whatDo != "auto");
+            } while (whatDo != "play" && whatDo != "move" && whatDo != "draw" && whatDo != "done" && whatDo != "auto");
+        } while (!valid);
     }
-    private void PlayCard(Card card, string stack)
+    private bool PlayCard(Player player, Card card, string stackString)
     {
-
-        // response if invalid move?
-
+        Deck stack = StackFromString(stackString);
+        bool valid = CheckMoveValidity(stack, card);
+        if (valid)
+        {
+            card = player.GetHand().Draw(player.GetHand().GetDeck().IndexOf(card));
+            stack.PlusOne(card);
+        }
         DisplayHandsAndStacks();
-
-        //return validity (bool)
+        return valid;
     }
-    private void MoveStack(string stack1, string stack2)
+    private Deck StackFromString(string stackString)
     {
-        // Automatically places player's highest card unless they have multiple of the highest value, in which case the player chooses which to place?
-
-        // response if invalid move?
-
+        Deck stack = new Deck("deck");
+        if (stackString == "n")
+        {
+            stack = _north;
+        }
+        else if (stackString == "e")
+        {
+            stack = _east;
+        }
+        else if (stackString == "s")
+        {
+            stack = _south;
+        }
+        else if (stackString == "w")
+        {
+            stack = _west;
+        }
+        else if (stackString == "ne")
+        {
+            stack = _northEast;
+        }
+        else if (stackString == "se")
+        {
+            stack = _southEast;
+        }
+        else if (stackString == "sw")
+        {
+            stack = _southWest;
+        }
+        else if (stackString == "nw")
+        {
+            stack = _northWest;
+        }
+        return stack;
+    }
+        private bool MoveStack(string stackString1, string stackString2)
+    {
+        // Automatically place player's highest card unless they have multiple of the highest value, in which case the player chooses which to place?
+        Deck stack1 = StackFromString(stackString1); // Moving
+        Deck stack2 = StackFromString(stackString2); // Destination
+        bool valid = CheckMoveValidity(stack2, stack1.GetDeck()[0]);
+        if (valid)
+        {
+            stack2.PlusMany(stack1.GetDeck());
+            stack1.GetDeck().Clear();
+        }
         DisplayHandsAndStacks();
-        //return validity (bool)
+        return valid;
+    }
+    private bool CheckMoveValidity(Deck stack, Card card)
+    {
+        bool valid = false;
+        int len = stack.GetDeck().Count;
+        if (len != 0)
+        {
+            Card last = stack.GetDeck()[len-1];
+            if (last.GetNumber() == card.GetNumber()+1)
+            {
+                // If card numbers are correctly in sequence
+                if ((last.GetSuit() == "♠" || last.GetSuit() == "♣") && (card.GetSuit() == "♥" || card.GetSuit() == "♦"))
+                {
+                    // If last card is black and new card is red
+                    valid = true;
+                }
+                else if ((last.GetSuit() == "♥" || last.GetSuit() == "♦") && (card.GetSuit() == "♠" || card.GetSuit() == "♣"))
+                {
+                    // If last card is red and new card is black
+                    valid = true;
+                }
+                else
+                {
+                    _aesthetic.WriteCenterText("This is not a valid move, please try again.");
+                    Console.ReadLine();
+                    valid = false;
+                }
+            }
+            else
+            {
+                _aesthetic.WriteCenterText("This is not a valid move, please try again.");
+                Console.ReadLine();
+            }
+        }
+        else
+        {
+            if (stack == _northEast || stack == _northWest || stack == _southEast || stack == _southWest)
+            {
+                if (card.GetNumber() == 13)
+                {
+                    valid = true;
+                }
+                else
+                {
+                    _aesthetic.WriteCenterText("Only kings may start stacks in the corners, please try again.");
+                    Console.ReadLine();
+                }
+            }
+            else
+            {
+                valid = true;
+            }
+        }
+        return valid;
     }
     private void DisplayHandsAndStacks()
     {
-        Console.Clear(); Console.WriteLine("\x1b[3J"); Console.Clear();
+        //Console.Clear(); Console.WriteLine("\x1b[3J"); Console.Clear();
         _aesthetic.WriteCenterText("~*~ Kings in the Corner ~*~");
         Console.WriteLine();
         _aesthetic.WriteCenterText("Computer Hand");
