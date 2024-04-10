@@ -10,8 +10,6 @@ public class User : Player
         // Empty
     }
 
-    // --- Getters and Setters ---
-
     // --- Methods ---
     public override string Play(string prompt)
     {

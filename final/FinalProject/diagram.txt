@@ -6,8 +6,24 @@ Constructors:
 * Menu(menuOptions : List<string>)
 
 Methods:
-* DisplayMenu() : void
-* ChooseMenuOption() : int
+* DisplayMenu(menuName : string) : void
+* ChooseMenuOption(menuName : string) : int
+
+
+Class : Aesthetic
+Attributes:
+* _doubledCharacters : List<string> // A list of string characters I have discovered to be counted as two char characters, including in string length, for some reason.
+
+Constructors:
+* Aesthetic()
+
+Methods:
+* WriteCenterText(text : string, newLine : bool = true) : void
+* Center() : void
+* FullWindowLineOfCharacters(textToRepeat : string) : void
+* CenteredLineOfCharacters(textToRepeat : string, len : int) : void
+* Indent(len : int) : void
+* DisplayPauseAnimation(spinnerType : string, timeLength : int, includeZero : bool)
 
 
 Class : GameManager
@@ -26,15 +42,17 @@ Attributes:
 * _number : int
 * _suit : string
 * _card : string
-* _cardSymbols : List<List<string>>
-* _suitSymbols : List<string>
 * _deck : string    // For games with multiple decks involved, so that it can be kept track of if needed.
 * _serial : int    // Most useful for decks containing multiple of the same card, so it doesn't conflate them in methods such as Deck.Shuffle().
+* _cardSymbols : List<List<string>>
+* _suitSymbols : List<string>
 
 Constructors:
 * Card(number : int, suit : string, serial : int = 0, deck : string = "deck")    // Deck defaults to "deck" so that different values for deck can be used when needed and ignored if not. Serial defaults to zero for use in cases when it is not needed, such as when creating a single card for uses such as displaying the back of a card, which is created as its own Card object.
 
 Getters and Setters:
+* GetNumber() : int
+* GetSuit() : string
 * GetDeck() : string
 * SetDeck(deck : string) : void
 
@@ -49,17 +67,24 @@ Attributes:
 * _deck : List<Card>
 * _numJokers : int // Might be set anywhere from 0 to however many the game with the most jokers needs.
 * _type : string    // Standard 52 vs. other variations such as the 48 card pinochle deck. Can also be set to "empty" in the constructor to generate an empty deck that will be added to as the game is played.
+* _aesthetic : Aesthetic
 
 Constructors:
-* Deck(name : string, type : string = "empty")   // Defaults to set up an empty deck that will be added to as the game is played. The first option to be added here is the standard 52 deck as that deck is most commonly used in card games, but more options can be added in the future.
+* Deck(name : string, type : string = "empty", numJokers : int = 0)   // Defaults to set up an empty deck that will be added to as the game is played. The first option to be added here is the standard 52 deck as that deck is most commonly used in card games, but more options can be added in the future.
+
+Getters and Setters:
+* GetDeck() : List<Card>
+* SetDeck(List<Card>) : void
+* GetName() : string
 
 Methods:
-* ShowDeck() : void
+* GetDeckForDisplay() : string
+* GetHiddenDeckForDisplay() : string
 * Shuffle() : List<Card>
-* Split(numDecks : int) : List<List<Card>>
 * SplitByDeck() : List<List<Card>>
+* Split(numDecks : int) : List<List<Card>>
 * Deal(numToDeal : int) : List<Card>    // Each card is removed from the _deck List<Card> attribute and added to a new list as it is "dealt", and the resulting list of Cards becomes the specified player's hand. Could use an if/else and iterate from 1 to 2 and back to deal cards one at a time back and forth between players with a timer to pause minutely between Cards, for effect.
-* Draw() : Card    // The Card is removed from the _deck and is then returned to be added to the player's hand or otherwise used/distributed.
+* Draw(index : int = 0) : Card    // The Card is removed from the _deck and is then returned to be added to the player's hand or otherwise used/distributed.
 * PlusOne(card : Card) : void
 * PlusMany(cards : List<Card>) : void
 
@@ -75,21 +100,27 @@ Constructors:
 Getters and Setters:
 * GetHand() : Deck
 * SetHand(deck : Deck) : void
+* GetPoints : int;
 
 Methods:
 * Draw(deck : Deck) : void   // Calls the Deck.Draw() method on deck and adds the returned card to the player's hand.
 * UpdatePoints(points : int) : void
+* GetHandForDisplay() : string
+* GetHiddenHandForDisplay() : string
+* virtual Play(prompt : string) : string
 
 ////
     // Subclasses of Player Class
     Class : User
     // Derived from Player Class
+    Attributes:
+    * _aesthetic : Aesthetic
 
     Constructors:
     * User()
 
     Methods:
-    * Play(prompt : string) : string   // Displays prompt and returns user response.
+    * override Play(prompt : string) : string   // Displays prompt and returns user response.
 
 
     Class : Computer
@@ -99,14 +130,14 @@ Methods:
     * Computer()
 
 
-Class : Game    // Abstract class? Interface?
+abstract Class : Game
 Attributes:
 * protected _numDecks : int
 * protected _deckType : string
 * protected _rules : string
 
 Constructors:
-* Game()    // Readies _numDecks decks of _deckType, with names set by iteration. Ex: deck1, deck2, deck3, etc.
+* Game()
 
 Methods:
 * abstract Start() : void
@@ -117,6 +148,7 @@ Methods:
     Class : KingsInTheCorner
     // Derived from Game Class
     Attributes:
+    * _drawPile : deck
     * _north : Deck
     * _east : Deck
     * _south : Deck
@@ -126,13 +158,20 @@ Methods:
     * _southWest : Deck
     * _northWest : Deck
     * _sidesAndCorners : List<Deck>
+    * _aesthetic : Aesthetic
 
     Constructors:
     * KingsInTheCorner()
 
     Methods:
     * override Start() : void
-    * override Round() : void
-    * Turn(player : Player) : int    // Calls the Player.Draw() method, Game.Play() method, and any other methods necessary for a player to take a turn in that game. Returns points earned, or if no points involved, checks if the game is over and who won if so.
-    * Play(player : Player) : void  // if/else tree that depends on player subclass to decide what it does calls User.Play() method which displays a prompt (provided here) and gets a response from the user which is used to determine what they do. If player cannot play, calls the Player.Draw() method.
-    * moveStack() : void // Automatically places player's highest card unless they have multiple of the highest value, in which case the player chooses which to place?
+    * override Round(goesFirst : int) : bool
+    * Turn(player : Player) : bool    // Calls the Player.Draw() method, Game.Play() method, and any other methods necessary for a player to take a turn in the game. Updates points earned and checks if the game is over.
+    * Play(player : Player) : bool  // if/else tree that depends on player subclass to decide if it calls the AutoPlay() method for the computer, or calls the User.Play() method which displays a given prompt and gets a response from the user which is used to determine what they do.
+    * AutoPlay(player : Player) : bool // Automatically plays for the computer Player.
+    * PlayCard(player : Player, card : Card, stackString : string) : bool
+    * MoveStack(player : Player, stackString1 : string, stackString2 : string) : bool // Moves the chosen stack and automatically places the player's highest card unless they have multiple of the highest value, in which case the player chooses which suit to place.
+    * StackFromString(stackString : string) : Deck
+    * CheckMoveValidity(stack : Deck, card : Card, isUser : bool = true) : bool
+    * DisplayHandsAndStacks() : void
+    * DisplayStacks() : void

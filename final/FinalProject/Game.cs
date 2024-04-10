@@ -1,6 +1,6 @@
 using System;
 
-abstract public class Game // Abstract class? Interface?
+abstract public class Game
 {
     // --- Attributes ---
     protected int _numDecks;

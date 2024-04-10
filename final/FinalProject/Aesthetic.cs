@@ -10,8 +10,6 @@ public class Aesthetic
         // Empty
     }
 
-    // --- Getters and Setters ---
-
     // --- Methods ---
     public void WriteCenterText(string text, bool newLine = true)
     {
@@ -36,7 +34,7 @@ public class Aesthetic
         int indent = Console.WindowWidth / 2;
         Console.SetCursorPosition(indent,Console.CursorTop);  
     }
-    public void FullWindowTextLine(string textToRepeat)
+    public void FullWindowLineOfCharacters(string textToRepeat)
     {
         for (int i = 0; i < Console.WindowWidth-1; i++)
         {
@@ -58,7 +56,7 @@ public class Aesthetic
         int indent = Console.WindowWidth - len;
         Console.SetCursorPosition(indent,Console.CursorTop);
     }
-    public void DisplayPauseAnimation(string spinnerType, int timeLength, int includeZero = -1)
+    public void DisplayPauseAnimation(string spinnerType, int timeLength, bool includeZero = false)
     {
         DateTime startTime = DateTime.Now;
         DateTime endTime = startTime.AddSeconds(timeLength);
@@ -156,7 +154,7 @@ public class Aesthetic
                 i--;
                 currentTime = DateTime.Now;
             } while(currentTime < endTime);
-            if (includeZero == 0)
+            if (includeZero == true)
             {
                 Console.Write($"0   ");
                 Thread.Sleep(len);
